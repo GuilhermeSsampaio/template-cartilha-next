@@ -9,6 +9,7 @@ import { SearchBar } from "./SearchBar.jsx";
 import { SearchResultsList } from "./SearchResultsList.jsx";
 import { isAndroid, isIOS, isDesktop } from 'react-device-detect'
 
+//componente da página inicial renderizado pela rota '/home' e pela rota '/'
 
 export const HomePage = () => {
     //Importação das Imagens
@@ -18,6 +19,7 @@ export const HomePage = () => {
     var LogoCartilha = require('../public/logo-cartilha.svg');   
     var Harley = require('../public/harley.png');   
 
+    //armazena o resultado do fetch para passar pra pesquisa
     const [results, setResults] = useState([]);
     
     const handleCloseResults = () => {
@@ -31,7 +33,7 @@ export const HomePage = () => {
                 <title>TecnofamApp</title>
             </Head>
 
-            {/* Código Navbar Offcanvas */}
+            {/* Código Navbar Offcanvas - o topo da página*/}
             <nav className="navbar navbar-expand-lg navbar-light bg-white fixed-top" aria-label="Offcanvas navbar large">
                 <div className="container-fluid">
                     <div className="d-flex align-items-center"> 
@@ -110,7 +112,9 @@ export const HomePage = () => {
                         <Link href="/edicao-completa" type="button" className="btn">
                             Acessar a edição completa
                         </Link>
-                        {/* <a id='btn-instalar' href="#" className='btn'>Instalar</a> */}
+
+                        {/* funções para verificar o disposito, conforme o dispositivo ele renderiza um tipo de botão de instalação */}
+                        {/* para android o botão de instalar força o pwa a ser instalado, para ios são renderizadas instruções para adicionar o app à página inicial */}
                         {isDesktop && <InstallButton />}
                         {isAndroid && <InstallButton />}
                         {isIOS && <InstallButtonIos />}

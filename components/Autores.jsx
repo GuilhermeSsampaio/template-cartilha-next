@@ -28,7 +28,7 @@ export const Autores = () => {
     const CarregaAutores = async () => {
         //const url = 'https://tecnofam-strapi.a.cnpgc.embrapa.br/api/autors?populate=*';
         // const url = 'https://api-cartilha-teste-production.up.railway.app/api/autors';
-        const url = 'https://tecnofam-strapi.cpao.embrapa.br/api/autors?populate=*';
+        const url = 'https://api-cartilha-teste.onrender.com/api/autors?populate=*';
 
         try {
             const response = await fetch(url);

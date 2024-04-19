@@ -1,4 +1,4 @@
-// pages/autores.js
+// página que renderiza o componente de autores
 import React from 'react';
 import { Autores } from '../components/Autores';
 

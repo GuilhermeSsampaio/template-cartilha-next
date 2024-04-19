@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-scroll';
 
+// Componente que renderiza o botão de instalação para ios (PWA)
+
 const InstallButtonIos = () => {
     const [showInstructions, setShowInstructions] = useState(false);
 

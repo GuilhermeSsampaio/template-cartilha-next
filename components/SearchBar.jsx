@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 
+// Componente que realiza o fetch para a pesquisa de capítulos
+
 export const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
   const [typingTimeout, setTypingTimeout] = useState(null);
   const [showNoResultsMessage, setShowNoResultsMessage] = useState(false);
 
+  // Função para buscar os capítulos na API
   const fetchData = (value) => {
-    fetch("https://tecnofam-strapi.cpao.embrapa.br/api/capitulos")
+    fetch("https://api-cartilha-teste.onrender.com/api/capitulos") // URL da API de capítulos
       .then((response) => response.json())
       .then((data) => {
+        // Filtra os capítulos com base no valor de busca
         const results = data.data.filter((capitulo) => {
           return (
             value &&
@@ -27,6 +31,7 @@ export const SearchBar = ({ setResults }) => {
       });
   };
 
+  // Função para lidar com a mudança no input de busca
   const handleChange = (value) => {
     setInput(value);
 
@@ -34,6 +39,7 @@ export const SearchBar = ({ setResults }) => {
       clearTimeout(typingTimeout);
     }
 
+    // Configura um timeout para realizar a busca após um intervalo de tempo
     const timeout = setTimeout(() => {
       fetchData(value.toLowerCase());
     }, 200);
@@ -41,6 +47,7 @@ export const SearchBar = ({ setResults }) => {
     setTypingTimeout(timeout);
   };
 
+  // Limpa os resultados e a mensagem de nenhum resultado ao mudar o input
   useEffect(() => {
     setResults([]);
     setShowNoResultsMessage(false);

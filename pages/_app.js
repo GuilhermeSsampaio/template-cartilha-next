@@ -30,6 +30,7 @@ if (typeof window !== "undefined") {
 }
 
 // Função principal do Next.js
+
 function MyApp({ Component, pageProps }) {
   // Registra o Service Worker
   useEffect(() => {

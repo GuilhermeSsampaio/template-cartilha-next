@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { SearchResult } from "./SearchResult";
 
+// mostra os resultados da busca chamando o componente SearchResult
+
 export const SearchResultsList = ({ results, handleCloseResults  }) => {
   const mappedResults = results.map(item => ({
     ...item,

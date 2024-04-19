@@ -1,3 +1,4 @@
+// exemplo de página que envia um erro para o Sentry
 import Head from "next/head";
 import * as Sentry from "@sentry/nextjs";
 

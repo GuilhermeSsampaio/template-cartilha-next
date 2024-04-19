@@ -1,4 +1,4 @@
-// pages/edicao-completa.js
+// página que renderiza o componente de capítulos
 import React from 'react';
 import { Capitulos } from '../components/Capitulos';
 
