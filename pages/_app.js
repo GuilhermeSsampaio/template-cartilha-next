@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Importação dos CSS
 import "../styles/globals.css";
 import "../styles/custom.css";
@@ -16,6 +18,7 @@ import { init } from "@socialgouv/matomo-next";
 
 //importação do dotenv para acessar o .env
 import dotenv from "dotenv";
+import Notification from "../components/Notification";
 dotenv.config();
 
 //setando matomo
@@ -46,7 +49,12 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
 
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Component {...pageProps} />
+      <Notification/>
+    </>
+  )
 }
 
 export default MyApp;

@@ -32,7 +32,6 @@ export const HomePage = () => {
                 <meta name="referrer" referrerPolicy="no-referrer" />
                 <title>TecnofamApp</title>
             </Head>
-
             {/* Código Navbar Offcanvas - o topo da página*/}
             <nav className="navbar navbar-expand-lg navbar-light bg-white fixed-top" aria-label="Offcanvas navbar large">
                 <div className="container-fluid">
@@ -78,6 +77,8 @@ export const HomePage = () => {
                                     <Link className="nav-link back-item-link" href="/autores" aria-current="page">
                                         <span className="link-text">Autores</span>
                                     </Link>
+                                </li>
+                                <li>
                                 </li>
                             </ul>
                             {/* Input Search para tela maior que 992px */}

@@ -6,6 +6,8 @@ import Logo from '../public/logo.svg'
 import { SearchBar } from "./SearchBar.jsx";
 import { SearchResultsList } from "./SearchResultsList.jsx";
 
+//componente que renderiza os autores
+
 export const Autores = () => {
     //Importação das Imagens
     var LogoIF = require('../public/ifms-dr-marca-2015.png');
@@ -26,8 +28,6 @@ export const Autores = () => {
     }, []);
 
     const CarregaAutores = async () => {
-        //const url = 'https://tecnofam-strapi.a.cnpgc.embrapa.br/api/autors?populate=*';
-        // const url = 'https://api-cartilha-teste-production.up.railway.app/api/autors';
         const url = 'https://api-cartilha-teste.onrender.com/api/autors?populate=*';
 
         try {
@@ -122,7 +122,7 @@ export const Autores = () => {
                 <div className="headerTitle">
                     <h1>Autores</h1>
                 </div>
-                {/* Código dos Card dos Autores */}
+                {/* Código dos CardS dos Autores */}
                 <div className="main-container-cards container-cards">
                     {/* Puxando os Dados do Fetch */}
                     {data.length > 0 ? (

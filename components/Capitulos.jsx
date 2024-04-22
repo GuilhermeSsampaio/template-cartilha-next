@@ -8,6 +8,7 @@ import TextCapitulos from './TextCapitulos'
 import { SearchBar } from "./SearchBar.jsx";
 import { SearchResultsList } from "./SearchResultsList.jsx";
 
+//renderiza a página de capítulos fazendo a chamada da API e renderizando o conteúdo pelo componente textCapitulos
 export const Capitulos = () => {
     //Importação das Imagens
     var LogoIF = require('../public/ifms-dr-marca-2015.png');
@@ -108,8 +109,6 @@ export const Capitulos = () => {
     };
 
     const CarregaCapitulos = async () => {
-        //const url = 'https://tecnofam-strapi.a.cnpgc.embrapa.br/api/capitulos?populate=*';
-        // const url = 'https://api-cartilha-teste-production.up.railway.app/api/capitulos?populate=*'
         const url = 'https://api-cartilha-teste.onrender.com/api/capitulos?populate=*';
 
         try {

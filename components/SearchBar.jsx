@@ -42,7 +42,7 @@ export const SearchBar = ({ setResults }) => {
     // Configura um timeout para realizar a busca após um intervalo de tempo
     const timeout = setTimeout(() => {
       fetchData(value.toLowerCase());
-    }, 200);
+    }, 50);
 
     setTypingTimeout(timeout);
   };

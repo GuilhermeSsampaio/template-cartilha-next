@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+//cria o menu navegável entre as âncoras da página
 const TableOfContents = ({ headerBlocks }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
