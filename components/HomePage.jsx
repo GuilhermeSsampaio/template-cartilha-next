@@ -78,8 +78,6 @@ export const HomePage = () => {
                                         <span className="link-text">Autores</span>
                                     </Link>
                                 </li>
-                                <li>
-                                </li>
                             </ul>
                             {/* Input Search para tela maior que 992px */}
                             <div id="searchForm" className="search-container">

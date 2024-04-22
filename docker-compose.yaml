@@ -5,7 +5,7 @@ services:
     build:
       context: ./ # Substitua pelo caminho para o seu código-fonte do Next.js
       dockerfile: Dockerfile
-    container_name: tecnofam-pwa
+    container_name: frontend
     ports:
       - 3000:3000
     networks:
@@ -27,6 +27,6 @@ networks:
   tecnofam:
     external: true
     driver: bridge
-    name: tecnofam_cms_alpha
+    name: rede_alias
     #    name: ${IO_PROJECT}_${IO_APP}_${IO_STAGE}
       
