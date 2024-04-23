@@ -7,8 +7,11 @@ import Logo from '../public/logo.svg'
 import TextCapitulos from './TextCapitulos'
 import { SearchBar } from "./SearchBar.jsx";
 import { SearchResultsList } from "./SearchResultsList.jsx";
+import IndexedDBDataProvider from './IndexedDBDataProvider'; // Importando componente IndexedDBDataProvider
 
-//renderiza a página de capítulos fazendo a chamada da API e renderizando o conteúdo pelo componente textCapitulos
+//renderiza a página de capítulos fazendo a chamada da API e renderizando o conteúdo 
+//pelo componente textCapitulos
+
 export const Capitulos = () => {
     //Importação das Imagens
     var LogoIF = require('../public/ifms-dr-marca-2015.png');
@@ -90,47 +93,11 @@ export const Capitulos = () => {
             backButton.removeEventListener('click', handleToggleMainNavbar);
         };
     }, [isCollapsed]);
-
-    //Puxando a API
     useEffect(() => {
-        CarregaCapitulos();
+        // CarregaAutores();
+        document.title = 'Embrapa Capítulos';
     }, []);
 
-    useEffect(() => {
-        const chapterNumber = extractChapterNumberFromAnchor(asPath);
-        if (chapterNumber !== null) {
-            setActiveTitle(chapterNumber);
-        }
-    }, [asPath]);
-
-    const extractChapterNumberFromAnchor = (path) => {
-        const match = path.match(/#capitulo_(\d+)/);
-        return match ? parseInt(match[1]) : null;
-    };
-
-    const CarregaCapitulos = async () => {
-        const url = 'https://api-cartilha-teste.onrender.com/api/capitulos?populate=*';
-
-        try {
-            const response = await fetch(url);
-            if (response.ok) {
-                const json = await response.json();
-                const data = json.data;
-                setData(data);
-                
-                if (asPath.includes('#capitulo_')) {
-                    const chapterNumber = extractChapterNumberFromAnchor(asPath);
-                    setActiveTitle(chapterNumber);
-                } else if (data.length > 0) {
-                    setActiveTitle(data[0].id);
-                }
-            } else {
-                throw new Error('Falha na requisição. Código de status: ' + response.status);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
 
     useEffect(() => {
         if (activeTitle === null) {
@@ -163,8 +130,14 @@ export const Capitulos = () => {
                 <meta name="referrer" referrerPolicy="no-referrer" />
                 <title>TecnofamApp</title>
             </Head>
-
+            <IndexedDBDataProvider
+                apiUrl="https://api-cartilha-teste.onrender.com/api/capitulos?populate=*"
+                dbName="api-capitulos"
+                storeName="capitulos"
+                keyPath="id"
+            >
             {/* Div que Pega todo o Conteúdo da Página */}
+            {(data) => (
             <div className="container-wrapper">
                 {/* Código Sidebar */}
                 <nav id="sidebarMenu" className={`collapse d-lg-block sidebar bg-white thin-scrollbar ${isOffcanvasOpen ? 'show' : ''}`} tabIndex="-1">
@@ -334,7 +307,8 @@ export const Capitulos = () => {
                     </div>
                 </main>
             </div>
-            
+            )}
+            </IndexedDBDataProvider>
             {/* Código Footer Embrapa */}  
             <footer>
                 <div className="container container-footer bottom-0 end-0">
