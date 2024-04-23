@@ -5,7 +5,7 @@ const IndexedDBDataProvider = ({ children, apiUrl, dbName, storeName, keyPath })
 
     const abrirBancoDeDados = async () => {
         return new Promise((resolve, reject) => {
-            const request = indexedDB.open(dbName, 2);
+            const request = indexedDB.open(dbName, 1);
             request.onerror = (event) => {
                 reject(event.target.error);
             };

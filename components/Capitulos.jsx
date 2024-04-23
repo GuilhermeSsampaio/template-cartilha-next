@@ -9,9 +9,6 @@ import { SearchBar } from "./SearchBar.jsx";
 import { SearchResultsList } from "./SearchResultsList.jsx";
 import IndexedDBDataProvider from './IndexedDBDataProvider'; // Importando componente IndexedDBDataProvider
 
-//renderiza a página de capítulos fazendo a chamada da API e renderizando o conteúdo 
-//pelo componente textCapitulos
-
 export const Capitulos = () => {
     //Importação das Imagens
     var LogoIF = require('../public/ifms-dr-marca-2015.png');
@@ -93,23 +90,34 @@ export const Capitulos = () => {
             backButton.removeEventListener('click', handleToggleMainNavbar);
         };
     }, [isCollapsed]);
-    useEffect(() => {
-        // CarregaAutores();
-        document.title = 'Embrapa Capítulos';
-    }, []);
-
 
     useEffect(() => {
-        if (activeTitle === null) {
-            // Verifique se data não é nulo e se tem pelo menos um elemento
-            if (data && data.length > 0) {
-              // Se for nulo, defina-o como o primeiro capítulo da API
-              setActiveTitle(data[0].id);
-        
-              // Use useRouter para navegar para o capítulo ativo
-              router.push(`/edicao-completa?activeChapter=${data[0].id}`, undefined, { shallow: true });
+        const chapterNumber = extractChapterNumberFromAnchor(asPath);
+        if (chapterNumber !== null) {
+            setActiveTitle(chapterNumber);
+        }
+    }, [asPath]);
+
+    const extractChapterNumberFromAnchor = (path) => {
+        const match = path.match(/#capitulo_(\d+)/);
+        return match ? parseInt(match[1]) : null;
+    };
+
+    useEffect(() => {
+        const storedActiveChapter = localStorage.getItem('activeChapter');
+        if (activeTitle === null && data && data.length > 0) {
+            // Se activeTitle for null e houver dados disponíveis
+            if (storedActiveChapter && data.some(item => item.id === parseInt(storedActiveChapter))) {
+                // Se houver um capítulo ativo armazenado localmente e estiver presente nos dados
+                setActiveTitle(parseInt(storedActiveChapter));
+                router.push(`/edicao-completa?activeChapter=${parseInt(storedActiveChapter)}`, undefined, { shallow: true });
+             }
+            else {
+                // Caso contrário, defina o primeiro capítulo como ativo
+                setActiveTitle(data[0].id);
+                router.push(`/edicao-completa?activeChapter=${data[0].id}`, undefined, { shallow: true });
             }
-          }
+        }
         scrollToTop();
     }, [activeTitle, data, router]);
 
@@ -137,7 +145,9 @@ export const Capitulos = () => {
                 keyPath="id"
             >
             {/* Div que Pega todo o Conteúdo da Página */}
-            {(data) => (
+            {(data) => {
+                setData(data);
+            return(
             <div className="container-wrapper">
                 {/* Código Sidebar */}
                 <nav id="sidebarMenu" className={`collapse d-lg-block sidebar bg-white thin-scrollbar ${isOffcanvasOpen ? 'show' : ''}`} tabIndex="-1">
@@ -307,7 +317,8 @@ export const Capitulos = () => {
                     </div>
                 </main>
             </div>
-            )}
+            )
+            }}
             </IndexedDBDataProvider>
             {/* Código Footer Embrapa */}  
             <footer>
