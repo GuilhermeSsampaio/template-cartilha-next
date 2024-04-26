@@ -61,8 +61,10 @@ const IndexedDBDataProvider = ({ children, apiUrl, dbName, storeName, keyPath })
             try {
                 let storedData = [];
                 if (!navigator.onLine) {
+                    console.log('Você está offline. Recuperando dados do IndexedDB.');
                     storedData = await obterDadosDoIndexedDB();
                 } else {
+                    console.log('Você está online. Recuperando dados da API.');
                     const response = await fetch(apiUrl);
                     if (response.ok) {
                         const json = await response.json();
@@ -76,15 +78,18 @@ const IndexedDBDataProvider = ({ children, apiUrl, dbName, storeName, keyPath })
             } catch (error) {
                 console.error(error);
                 if (!navigator.onLine) {
-                    console.log('Você está offline. Verifique sua conexão com a Internet e tente novamente.');
+                    console.log('Você está offline. Recuperando dados do IndexedDB.');
+                    const storedData = await obterDadosDoIndexedDB();
+                    setData(storedData);
                 } else {
                     console.error('Erro ao carregar os dados da API:', error.message);
                 }
             }
         };
-
+    
         fetchData();
     }, []);
+    
 
     return <>{children(data)}</>;
 };
