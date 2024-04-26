@@ -52,6 +52,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Component {...pageProps} />
+      {/* componente que mostra a notificação */}
       <Notification/>
     </>
   )

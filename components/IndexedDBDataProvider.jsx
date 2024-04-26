@@ -11,6 +11,7 @@ const IndexedDBDataProvider = ({ children, apiUrl, dbName, storeName, keyPath })
             };
             request.onsuccess = (event) => {
                 resolve(event.target.result);
+                console.log(`Banco de dados ${dbName} aberto com sucesso.`);
             };
             request.onupgradeneeded = (event) => {
                 const db = event.target.result;
@@ -29,6 +30,7 @@ const IndexedDBDataProvider = ({ children, apiUrl, dbName, storeName, keyPath })
             data.forEach(item => {
                 store.add(item);
             });
+            console.log(`Dados atualizados localmente no banco ${storeName}`);
         } catch (error) {
             console.error("Erro ao atualizar dados localmente:", error);
         }
