@@ -1,7 +1,7 @@
 {
-    "name": "TecnofamApp",
-    "short_name": "TecnofamApp",
-    "description": "Cartilha da agricultura familiar da embrapa",
+    "name": "template-pwa",
+    "short_name": "template-pwa",
+    "description": "template pwa cartilha",
     "start_url": "/",
     "display": "standalone",
     "theme_color": "#218c74",
