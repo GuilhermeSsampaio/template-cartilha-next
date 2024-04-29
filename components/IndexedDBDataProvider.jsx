@@ -89,9 +89,41 @@ const IndexedDBDataProvider = ({ children, apiUrl, dbName, storeName, keyPath })
     
         fetchData();
     }, []);
-    
 
     return <>{children(data)}</>;
 };
 
 export default IndexedDBDataProvider;
+
+export const storeDataLocally = async (dbName, storeName, jsonData) => {
+    try {
+        const db = await abrirBancoDeDados(dbName, storeName);
+        const transaction = db.transaction([storeName], "readwrite");
+        const store = transaction.objectStore(storeName);
+        jsonData.forEach(item => {
+            store.add(item);
+        });
+        console.log(`Dados armazenados localmente no banco ${storeName}`);
+    } catch (error) {
+        console.error("Erro ao armazenar os dados localmente:", error);
+    }
+};
+
+export const abrirBancoDeDados = async (dbName, storeName, keyPath) => {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open(dbName, 1);
+        request.onerror = (event) => {
+            reject(event.target.error);
+        };
+        request.onsuccess = (event) => {
+            resolve(event.target.result);
+            console.log(`Banco de dados ${dbName} aberto com sucesso.`);
+        };
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains(storeName)) {
+                db.createObjectStore(storeName, { keyPath: keyPath });
+            }
+        };
+    });
+};
