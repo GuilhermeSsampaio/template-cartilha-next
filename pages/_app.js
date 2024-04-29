@@ -12,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "mdb-ui-kit/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import IndexedDBDataProvider from "../components/IndexedDBDataProvider";
 
 //importação do Matomo
 import { init } from "@socialgouv/matomo-next";
@@ -48,6 +49,10 @@ function MyApp({ Component, pageProps }) {
         });
     }
   }, []);
+
+
+  IndexedDBDataProvider("https://api-cartilha-teste.onrender.com/api/capitulos?populate=*", "api-cartilha",  "capitulos",  "id" );
+  IndexedDBDataProvider("https://api-cartilha-teste.onrender.com/api/autors?populate=*", "api-autores",  "autores",  "id" );
 
   return (
     <>
