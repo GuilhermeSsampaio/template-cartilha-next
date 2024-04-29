@@ -6,6 +6,7 @@ import Logo from '../public/logo.svg';
 import { SearchBar } from './SearchBar.jsx';
 import { SearchResultsList } from './SearchResultsList.jsx';
 import IndexedDBDataProvider from './IndexedDBDataProvider.jsx'; 
+import FetchApiOffline from './FetchApiOffline.jsx';
 
 export const Autores = () => {
     var LogoIF = require('../public/ifms-dr-marca-2015.png');
@@ -25,25 +26,19 @@ export const Autores = () => {
    }, []);
 
     const CarregaAutores = async () => {
-        //const url = 'https://tecnofam-strapi.a.cnpgc.embrapa.br/api/autors?populate=*';
-        // const url = 'https://api-cartilha-teste-production.up.railway.app/api/autors';
-        const url = 'https://api-cartilha-teste.onrender.com/api/autors?populate=*';
-
         try {
-            const response = await fetch(url);
-            if (response.ok) {
-                const json = await response.json();
-                const data = json.data;
-                console.log('API response:', data);
-                setData(data);
-            } else {
-                throw new Error('Falha na requisição. Código de status: ' + response.status);
-            }
+            const res = await FetchApiOffline(
+                "https://api-cartilha-teste.onrender.com/api/autors?populate=*",
+                "api-autores",
+                "autores",
+                "id"
+            );
+            setData(res);
+            console.log('Autores carregados no novo jeito:', res)
         } catch (error) {
-            console.error(error);
+            console.error('Erro ao carregar os autores:', error);
         }
-    };
-
+    }
 
     return (
         <>

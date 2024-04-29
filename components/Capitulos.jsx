@@ -8,6 +8,7 @@ import TextCapitulos from './TextCapitulos'
 import { SearchBar } from "./SearchBar.jsx";
 import { SearchResultsList } from "./SearchResultsList.jsx";
 import IndexedDBDataProvider from './IndexedDBDataProvider'; // Importando componente IndexedDBDataProvider
+import FetchApiOffline from './FetchApiOffline.jsx';
 
 export const Capitulos = () => {
     //Importação das Imagens
@@ -108,27 +109,19 @@ export const Capitulos = () => {
     };
 
     const CarregaCapitulos = async () => {
-        const url = 'https://api-cartilha-teste.onrender.com/api/capitulos?populate=*';
-
         try {
-            const response = await fetch(url);
-            if (response.ok) {
-                const json = await response.json();
-                const data = json.data;
-                setData(data);
-                
-                if (asPath.includes('#capitulo_')) {
-                    const chapterNumber = extractChapterNumberFromAnchor(asPath);
-                    setActiveTitle(chapterNumber);
-                } else if (data.length > 0) {
-                    setActiveTitle(data[0].id);
-                }
-            } else {
-                throw new Error('Falha na requisição. Código de status: ' + response.status);
-            }
+            const res = await FetchApiOffline(
+                "https://api-cartilha-teste.onrender.com/api/capitulos?populate=*",
+                "api-cartilha",
+                "capitulos",
+                "id"
+            );
+            setData(res);
+            console.log('capitulos carregados no novo jeito:', res)
         } catch (error) {
-            console.error(error);
+            console.error('Erro ao carregar os capitulos:', error);
         }
+
     };
 
     useEffect(() => {
