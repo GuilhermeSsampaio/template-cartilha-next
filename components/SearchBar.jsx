@@ -1,50 +1,35 @@
 import { useState, useEffect } from "react";
+import FetchApiOffline from "../api/FetchApiOffline"; // Certifique-se de importar o componente FetchApiOffline corretamente
 
-// Componente que realiza o fetch para a pesquisa de capítulos
-
+// Componente que realiza a pesquisa de capítulos
 export const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
-  const [typingTimeout, setTypingTimeout] = useState(null);
   const [showNoResultsMessage, setShowNoResultsMessage] = useState(false);
 
-  // Função para buscar os capítulos na API
-  const fetchData = (value) => {
-    fetch("https://api-cartilha-teste.onrender.com/api/capitulos") // URL da API de capítulos
-      .then((response) => response.json())
-      .then((data) => {
-        // Filtra os capítulos com base no valor de busca
-        const results = data.data.filter((capitulo) => {
-          return (
-            value &&
-            capitulo.attributes &&
-            capitulo.attributes.title &&
-            capitulo.attributes.title.toLowerCase().includes(value.toLowerCase())
-          );
-        });
-        setResults(results);
-        setShowNoResultsMessage(results.length === 0 && value.trim() !== ""); 
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar dados:", error);
-        setResults([]);
-        setShowNoResultsMessage(true);
-      });
-  };
-
   // Função para lidar com a mudança no input de busca
-  const handleChange = (value) => {
+  const handleChange = async (value) => {
     setInput(value);
-
-    if (typingTimeout) {
-      clearTimeout(typingTimeout);
+    try {
+      const data = await FetchApiOffline(
+        "https://api-cartilha-teste.onrender.com/api/capitulos",
+        "api-cartilha",
+        "capitulos"
+      );
+      const results = data.filter((capitulo) => {
+        return (
+          value &&
+          capitulo.attributes &&
+          capitulo.attributes.title &&
+          capitulo.attributes.title.toLowerCase().includes(value.toLowerCase())
+        );
+      });
+      setResults(results);
+      setShowNoResultsMessage(results.length === 0 && value.trim() !== "");
+    } catch (error) {
+      console.error("Erro ao buscar os dados:", error);
+      setResults([]);
+      setShowNoResultsMessage(true);
     }
-
-    // Configura um timeout para realizar a busca após um intervalo de tempo
-    const timeout = setTimeout(() => {
-      fetchData(value.toLowerCase());
-    }, 50);
-
-    setTypingTimeout(timeout);
   };
 
   // Limpa os resultados e a mensagem de nenhum resultado ao mudar o input
@@ -62,7 +47,11 @@ export const SearchBar = ({ setResults }) => {
         value={input}
         onChange={(e) => handleChange(e.target.value)}
       />
-      {showNoResultsMessage && <div className="results-list"><p className='result-nulo'>Nenhum resultado encontrado para "{input}".</p></div>}
+      {showNoResultsMessage && (
+        <div className="results-list">
+          <p className="result-nulo">Nenhum resultado encontrado para "{input}".</p>
+        </div>
+      )}
     </div>
   );
 };

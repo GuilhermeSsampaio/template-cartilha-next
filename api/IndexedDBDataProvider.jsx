@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const IndexedDBDataProvider = ( apiUrl, dbName, storeName, keyPath ) => {
+const IndexedDBDataProvider = (apiUrl, dbName, storeName, keyPath) => {
     const [data, setData] = useState([]);
 
     const abrirBancoDeDados = async () => {
@@ -88,10 +88,9 @@ const IndexedDBDataProvider = ( apiUrl, dbName, storeName, keyPath ) => {
         };
     
         fetchData();
-    }, []);
+    }, [apiUrl, dbName, storeName, keyPath]); // Adicionando os parâmetros como dependências
 
-    // return <>{children(data)}</>;
+    return data;
 };
 
 export default IndexedDBDataProvider;
-

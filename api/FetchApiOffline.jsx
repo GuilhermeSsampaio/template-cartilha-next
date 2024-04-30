@@ -4,6 +4,7 @@ async function FetchApiOffline(apiUrl, dbName, storeName, keyPath) {
             console.log('Você está offline. Recuperando dados do IndexedDB.');
             const storedData = await obterDadosDoIndexedDB(dbName, storeName);
             return storedData;
+            
         } else {
             console.log('Você está online. Recuperando dados da API.');
             const response = await fetch(apiUrl);

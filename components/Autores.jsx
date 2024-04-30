@@ -5,8 +5,7 @@ import Link from 'next/link';
 import Logo from '../public/logo.svg';
 import { SearchBar } from './SearchBar.jsx';
 import { SearchResultsList } from './SearchResultsList.jsx';
-import IndexedDBDataProvider from './IndexedDBDataProvider.jsx'; 
-import FetchApiOffline from './FetchApiOffline.jsx';
+import FetchApiOffline from '../api/FetchApiOffline.jsx';
 
 export const Autores = () => {
     var LogoIF = require('../public/ifms-dr-marca-2015.png');

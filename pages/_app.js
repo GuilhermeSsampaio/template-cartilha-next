@@ -1,6 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // Importação dos CSS
 import "../styles/globals.css";
@@ -12,7 +11,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "mdb-ui-kit/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import IndexedDBDataProvider from "../components/IndexedDBDataProvider";
+import IndexedDBDataProvider from "../api/IndexedDBDataProvider";
 
 //importação do Matomo
 import { init } from "@socialgouv/matomo-next";
@@ -49,10 +48,20 @@ function MyApp({ Component, pageProps }) {
         });
     }
   }, []);
+  const [capitulos, setCapitulos] = useState([]);
+  const [autores, setAutores] = useState([]);
 
+  const capitulosData = IndexedDBDataProvider("https://api-cartilha-teste.onrender.com/api/capitulos?populate=*", "api-cartilha",  "capitulos",  "id");
+  const autoresData = IndexedDBDataProvider("https://api-cartilha-teste.onrender.com/api/autors?populate=*", "api-autores",  "autores",  "id");
 
-  IndexedDBDataProvider("https://api-cartilha-teste.onrender.com/api/capitulos?populate=*", "api-cartilha",  "capitulos",  "id" );
-  IndexedDBDataProvider("https://api-cartilha-teste.onrender.com/api/autors?populate=*", "api-autores",  "autores",  "id" );
+  useEffect(() => {
+    setCapitulos(capitulosData);
+  }, [capitulosData]);
+
+  useEffect(() => {
+    setAutores(autoresData);
+  }, [autoresData]);
+
 
   return (
     <>

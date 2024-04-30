@@ -7,8 +7,7 @@ import Logo from '../public/logo.svg'
 import TextCapitulos from './TextCapitulos'
 import { SearchBar } from "./SearchBar.jsx";
 import { SearchResultsList } from "./SearchResultsList.jsx";
-import IndexedDBDataProvider from './IndexedDBDataProvider'; // Importando componente IndexedDBDataProvider
-import FetchApiOffline from './FetchApiOffline.jsx';
+import FetchApiOffline from '../api/FetchApiOffline.jsx';
 
 export const Capitulos = () => {
     //Importação das Imagens
