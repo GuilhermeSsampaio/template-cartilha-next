@@ -1,7 +1,7 @@
 const version = '2.0.0';
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.2.0/workbox-sw.js');
 
-elf.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', (event) => {
   const genericFetchHandler = fetch(event.request.clone())
     .catch(() => {
       // Em caso de erro de rede, responder com uma página de fallback
