@@ -3,7 +3,9 @@ import { toast } from "react-toastify";
 async function FetchApiOffline(apiUrl, dbName, storeName, keyPath, isShowMsg) {
     try {
         if (!navigator.onLine) {
+            if (isShowMsg) {
             toast.info(`Você está offline. Recuperando ${storeName} localmente.`);
+            }
             const storedData = await obterDadosDoIndexedDB(dbName, storeName);
             return storedData;
 
