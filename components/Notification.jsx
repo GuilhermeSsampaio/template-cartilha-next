@@ -27,3 +27,7 @@ class Notification extends React.Component {
 }
 
 export default Notification;
+
+export const DownloadNotification = () => {
+  toast.success('Aplicativo instalado com sucesso!');
+};

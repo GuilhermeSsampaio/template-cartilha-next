@@ -30,7 +30,8 @@ export const Autores = () => {
                 "https://api-cartilha-teste.onrender.com/api/autors?populate=*",
                 "api-autores",
                 "autores",
-                "id"
+                "id",
+                true
             );
             setData(res);
             console.log('Autores carregados no novo jeito:', res)

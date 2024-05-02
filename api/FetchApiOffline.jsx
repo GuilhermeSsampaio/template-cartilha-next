@@ -1,20 +1,40 @@
-async function FetchApiOffline(apiUrl, dbName, storeName, keyPath) {
+import { toast } from "react-toastify";
+
+async function FetchApiOffline(apiUrl, dbName, storeName, keyPath, isShowMsg) {
     try {
         if (!navigator.onLine) {
-            console.log('Você está offline. Recuperando dados do IndexedDB.');
+            toast.info(`Você está offline. Recuperando ${storeName} localmente.`);
             const storedData = await obterDadosDoIndexedDB(dbName, storeName);
             return storedData;
-            
+
         } else {
-            console.log('Você está online. Recuperando dados da API.');
-            const response = await fetch(apiUrl);
-            if (response.ok) {
-                const json = await response.json();
-                const data = json.data;
-                return data;
-            } else {
-                throw new Error('Falha na requisição. Código de status: ' + response.status);
+            if (!isShowMsg) {
+                console.log(`Você está online. Recuperando ${storeName} da API.`);
+                const response = await fetch(apiUrl);
+                if (response.ok) {
+                    const json = await response.json();
+                    const data = json.data;
+                    return data;
+                } else {
+                    throw new Error('Falha na requisição. Código de status: ' + response.status);
+                }
             }
+            else {
+                const response = await toast.promise(fetch(apiUrl),
+                    {
+                        pending: `Carregando ${storeName} online...`,
+                        success: `Os ${storeName} foram atualizados com sucesso!`,
+                        error: `Erro ao carregar os ${storeName} online.`
+                    });
+                if (response.ok) {
+                    const json = await response.json();
+                    const data = json.data;
+                    return data;
+                } else {
+                    throw new Error('Falha na requisição. Código de status: ' + response.status);
+                }
+            }
+
         }
     } catch (error) {
         console.error('Erro ao carregar os dados:', error);

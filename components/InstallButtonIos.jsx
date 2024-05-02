@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-scroll';
+import { DownloadNotification } from './Notification';
 
 // Componente que renderiza o botão de instalação para ios (PWA)
 
@@ -12,6 +13,7 @@ const InstallButtonIos = () => {
 
     const closeInstructions = () => {
         setShowInstructions(false);
+        DownloadNotification(); // Chama a função DownloadNotification após fechar as instruções
     };
 
     return (

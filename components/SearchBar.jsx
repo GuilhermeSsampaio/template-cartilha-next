@@ -13,7 +13,8 @@ export const SearchBar = ({ setResults }) => {
       const data = await FetchApiOffline(
         "https://api-cartilha-teste.onrender.com/api/capitulos",
         "api-cartilha",
-        "capitulos"
+        "capítulos",
+        false
       );
       const results = data.filter((capitulo) => {
         return (
