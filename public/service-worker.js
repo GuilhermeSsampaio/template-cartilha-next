@@ -1,10 +1,21 @@
-// service-worker.js
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.2.0/workbox-sw.js');
+
+//garantindo que as rotas estejam disponíveis offline ao baixar o pwa
+self.addEventListener('install', (event) => {
+  const urls = ['/edicao-completa', '/autores', '/home', '/'];
+  const cacheName = workbox.core.cacheNames.runtime;
+  event.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(urls)));
+});
+
+workbox.routing.registerRoute(
+  new RegExp('/edicao-completa.*'),
+  new workbox.strategies.StaleWhileRevalidate()
+);
 
 // Rota para a API de capítulos
 workbox.routing.registerRoute(
   new RegExp('https://api-cartilha-teste.onrender.com/api/capitulos?populate=*'),
-  new workbox.strategies.NetworkFirst({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'api-capitulos-cache',
   })
 );
@@ -12,19 +23,21 @@ workbox.routing.registerRoute(
 // Rota para a API de autores
 workbox.routing.registerRoute(
   new RegExp('https://api-cartilha-teste.onrender.com/api/autors?populate=*'),
-  new workbox.strategies.NetworkFirst({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'api-autores-cache',
   })
 );
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.url.includes('/api/capitulos') || event.request.url.includes('/api/autors')) {
-    const promiseChain = fetch(event.request.clone())
-      .catch(() => {
-        return self.registration.sync.register('syncData');
-      });
-    event.waitUntil(promiseChain);
-  }
+  // Tratamento genérico para todas as solicitações de rede
+  const genericFetchHandler = fetch(event.request.clone())
+    .catch(() => {
+      // Registra um evento de sincronização para tentar novamente mais tarde
+      return self.registration.sync.register('syncData');
+    });
+
+  // Espera pela conclusão da solicitação
+  event.respondWith(genericFetchHandler);
 });
 
 self.addEventListener('sync', (event) => {
@@ -34,6 +47,7 @@ self.addEventListener('sync', (event) => {
 });
 
 function syncData() {
+  // Adicione lógica aqui para sincronizar dados pendentes, se necessário
   return workbox.precaching.cleanupOutdatedCaches()
     .then(() => {
       return workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
