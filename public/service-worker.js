@@ -1,3 +1,4 @@
+const version = '2.0.0';
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.2.0/workbox-sw.js');
 
 //garantindo que as rotas estejam disponíveis offline ao baixar o pwa
@@ -75,3 +76,20 @@ workbox.routing.registerRoute(
   ({ url }) => url.origin === self.location.origin,
   new workbox.strategies.StaleWhileRevalidate()
 );
+
+// // Evento de ativação para limpar caches antigos e atualizar o Service Worker
+self.addEventListener('activate', (event) => {
+  const currentCaches = [workbox.core.cacheNames.runtime, 'api-capitulos-cache', 'api-autores-cache', 'static-cache', 'manifest-cache'];
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return cacheNames.filter((cacheName) => !currentCaches.includes(cacheName));
+    }).then((cachesToDelete) => {
+      return Promise.all(cachesToDelete.map((cacheToDelete) => {
+        return caches.delete(cacheToDelete);
+      }));
+    }).then(() => {
+      console.log(`Service Worker ${version} atualizado com sucesso!`);
+      return self.clients.claim();
+    })
+  );
+});

@@ -31,7 +31,10 @@ const sentryConfig = {
   automaticVercelMonitors: true,
 };
 
-const nextConfigWithSentry = withSentryConfig(nextConfig, sentryOptions, sentryConfig);
+// const nextConfigWithSentry = withSentryConfig(nextConfig, sentryOptions, sentryConfig);
+
+//sentry bugou, adicionar depoism com a const acima
+const nextConfigWithSentry = withSentryConfig(nextConfig);
 
 
 // Configuration object tells the next-pwa plugin 
