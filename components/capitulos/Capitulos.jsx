@@ -3,17 +3,17 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import Logo from '../public/logo.svg'
-import TextCapitulos from './TextCapitulos'
-import { SearchBar } from "./SearchBar.jsx";
-import { SearchResultsList } from "./SearchResultsList.jsx";
-import FetchApiOffline from '../api/FetchApiOffline.jsx';
+import Logo from '../../public/logo.svg'
+import TextCapitulos from './TextCapitulos.jsx'
+import { SearchBar } from "../SearchBar.jsx";
+import { SearchResultsList } from "../SearchResultsList.jsx";
+import FetchApiOffline from '../../api/FetchApiOffline.jsx';
 
 export const Capitulos = () => {
     //Importação das Imagens
-    var LogoIF = require('../public/ifms-dr-marca-2015.png');
-    var LogoEmbrapa = require('../public/logo-embrapa-400.png');
-    var LogoIFEmbrapa = require('../public/logo-if-embrapa.png');
+    var LogoIF = require('../../public/ifms-dr-marca-2015.png');
+    var LogoEmbrapa = require('../../public/logo-embrapa-400.png');
+    var LogoIFEmbrapa = require('../../public/logo-if-embrapa.png');
 
     const router = useRouter();
     const { query } = router;
