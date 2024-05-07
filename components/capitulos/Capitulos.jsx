@@ -7,7 +7,7 @@ import Logo from '../../public/logo.svg'
 import TextCapitulos from './TextCapitulos.jsx'
 import { SearchBar } from "../search/SearchBar.jsx";
 import { SearchResultsList } from "../search/SearchResultsList.jsx";
-import FetchApiOffline from '../../api/FetchApiOffline.jsx';
+import FetchApiOffline from '../../localDatabase/FetchApiOffline.jsx';
 
 export const Capitulos = () => {
     //Importação das Imagens

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
-import FetchApiOffline from '../../api/FetchApiOffline.jsx';
+import FetchApiOffline from '../../localDatabase/FetchApiOffline.jsx';
 
 export const Autores = () => {
    //Fetch para pegar os dados da api Autors criada no Strapi
