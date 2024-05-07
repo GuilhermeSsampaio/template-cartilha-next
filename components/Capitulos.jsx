@@ -29,20 +29,20 @@ export const Capitulos = () => {
     const handleTitleClick = (titleId) => {
         setActiveTitle(titleId);
         localStorage.setItem('activeChapter', titleId.toString()); // Armazena o ID no localStorage
-    };
+    };    
 
     const openSidebar = () => {
         setIsOffcanvasOpen(true);
-    };
+    };    
 
     const handleToggle = () => {
         setIsCollapsed((prevState) => !prevState);
-    };
+    };  
 
     const handleToggleBackDrop = () => {
         setIsOffcanvasOpen((prevState) => !prevState);
     };
-
+    
     const toggleSummaryAndMainMenu = () => {
         setShowSummary(!showSummary);
     };
@@ -55,10 +55,10 @@ export const Capitulos = () => {
     const handleToggleMainNavbar = () => {
         const mainNavbarOptionsMenu = document.getElementById('main-navbar-options-menu');
         const summary = document.getElementById('summary');
-
+      
         if (mainNavbarOptionsMenu && summary) {
-            mainNavbarOptionsMenu.style.display = 'block';
-            summary.style.display = 'none';
+          mainNavbarOptionsMenu.style.display = 'block';
+          summary.style.display = 'none';
         }
     };
 
@@ -66,31 +66,32 @@ export const Capitulos = () => {
     const closeSidebar = () => {
         const sidebarMenu = document.getElementById("sidebarMenu");
         if (sidebarMenu) {
-            sidebarMenu.classList.remove("show");
+          sidebarMenu.classList.remove("show");
         }
         setIsOffcanvasOpen(false);
     }
-
+   
     //useEffect para quando o usuário quiser fechar ou abrir os itens dentro do sumário do sidebar
     useEffect(() => {
         const anchorElement = document.getElementById('collapseExample1');
-
+      
         if (anchorElement) {
             if (isCollapsed) {
                 anchorElement.classList.add('collapse');
             } else {
                 anchorElement.classList.remove('collapse');
-            }
+          }
         }
-
+      
         const backButton = document.getElementById('back-button');
         backButton.addEventListener('click', handleToggleMainNavbar);
-
+      
         return () => {
             backButton.removeEventListener('click', handleToggleMainNavbar);
         };
     }, [isCollapsed]);
 
+    //Puxando a API
     useEffect(() => {
         CarregaCapitulos();
     }, []);
@@ -155,7 +156,7 @@ export const Capitulos = () => {
     const activeChapter = data.find(item => item.id === activeTitle);
     const displayedTitle = activeChapter ? activeChapter.attributes.title : 'Título do Capítulo';
 
-    return (
+    return(
         <>
             <Head>
                 <meta name="referrer" referrerPolicy="no-referrer" />
@@ -172,7 +173,7 @@ export const Capitulos = () => {
                             <div className='logo-container-fixed'>
                                 <div className="logo-container d-flex align-items-center justify-content-between">
                                     <Link href="/home">
-                                        <Image className="img-sidebar-top mx-3" src={LogoIFEmbrapa} alt="logo Embrapa com letras em azul com um símbolo verde, sendo que as letras em cima do símbolo são brancas" width="45%" height={46} priority />
+                                        <Image className="img-sidebar-top mx-3" src={LogoIFEmbrapa} alt="logo Embrapa com letras em azul com um símbolo verde, sendo que as letras em cima do símbolo são brancas" width="45%" height={46} priority/>
                                     </Link>
                                     <button id="btn-close-sidebar" type="button" className="btn-close btn-close-dark btn-close-cap" data-bs-dismiss="collapse" aria-label="Close" onClick={() => { closeSidebar(); setShowSummary(true); }}></button>
                                 </div>
@@ -182,9 +183,10 @@ export const Capitulos = () => {
                             <button type="button" className="clean-btn navbar-sidebar__back" id="back-button" onClick={() => setShowSummary(true)}>← Voltar para o menu principal</button>
                             {/* Dropdown do Sumário */}
                             <div>
-                                <a
-                                    className={`list-group-item list-group-item-action d-flex justify-content-between align-items-center ripple ${isCollapsed ? 'collapsed' : ''
-                                        }`}
+                                <a 
+                                    className={`list-group-item list-group-item-action d-flex justify-content-between align-items-center ripple ${
+                                    isCollapsed ? 'collapsed' : ''
+                                    }`}
                                     aria-current="true"
                                     onClick={handleToggle}
                                 >
@@ -193,25 +195,25 @@ export const Capitulos = () => {
                                 </a>
                                 {/* Conteúdo do Sidebar, dentro do Dropdown Sumário */}
                                 {data.length > 0 ? (
-                                    data.map((item) => (
-                                        <ul key={item.id} id="collapseExample1"
-                                            className={`list-group list-group-flush mx-2 py-1 ${isCollapsed ? 'collapse' : 'show'}`}
+                                data.map((item) => (
+                                    <ul key={item.id} id="collapseExample1"
+                                        className={`list-group list-group-flush mx-2 py-1 ${isCollapsed ? 'collapse' : 'show'}`}
+                                    >
+                                        <li className={`list-group-item py-2 ${activeTitle === item.id ? 'active' : ''}`}
+                                            onClick={() => { handleTitleClick(item.id); setIsOffcanvasOpen(false);}}
+                                            style={{cursor: 'pointer'}}
                                         >
-                                            <li className={`list-group-item py-2 ${activeTitle === item.id ? 'active' : ''}`}
-                                                onClick={() => { handleTitleClick(item.id); setIsOffcanvasOpen(false); }}
-                                                style={{ cursor: 'pointer' }}
+                                            <a 
+                                                href={`#capitulo_${item.id}`} 
+                                                className={activeTitle === item.id ? 'active-link-summary' : ''}
                                             >
-                                                <a
-                                                    href={`#capitulo_${item.id}`}
-                                                    className={activeTitle === item.id ? 'active-link-summary' : ''}
-                                                >
-                                                    {item.attributes.title}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    ))
+                                                {item.attributes.title}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                ))
                                 ) : (
-                                    <p className='d-flex justify-content-center' style={{ marginTop: 20 }}>Carregando dados...</p>
+                                    <p className='d-flex justify-content-center' style={{marginTop: 20}}>Carregando dados...</p>
                                 )}
                             </div>
                         </div>
@@ -220,7 +222,7 @@ export const Capitulos = () => {
                     <div id='main-navbar-options-menu' style={{ marginTop: 16, display: showSummary ? 'none' : 'block' }}>
                         <div className="logo-container d-flex align-items-center justify-content-between">
                             <Link href="/home">
-                                <Image className="img-sidebar-top mx-3" src={LogoIFEmbrapa} alt="logo Embrapa com letras em azul com um símbolo verde, sendo que as letras em cima do símbolo são brancas" width="45%" height={46} priority />
+                                <Image className="img-sidebar-top mx-3" src={LogoIFEmbrapa} alt="logo Embrapa com letras em azul com um símbolo verde, sendo que as letras em cima do símbolo são brancas" width="45%" height={46} priority/>
                             </Link>
                             <button id="btn-close-sidebar" type="button" className="btn-close btn-close-dark btn-close-cap" data-bs-dismiss="sidebar" aria-label="Close" onClick={closeSidebar}></button>
                         </div>
@@ -230,7 +232,7 @@ export const Capitulos = () => {
                             <li className="nav-item mx-3">
                                 <Link className="nav-link back-item-link py-2" href="/edicao-completa" aria-current="page">
                                     <span className="link-text">Edição Completa</span>
-                                </Link>
+                                </Link> 
                             </li>
                             <li className="nav-item mx-3">
                                 <Link className="nav-link back-item-link py-2" href="/autores" aria-current="page">
@@ -239,25 +241,79 @@ export const Capitulos = () => {
                             </li>
                         </ul>
                     </div>
-                </nav>                
+                </nav>
 
+                {/* Código Navbar */}
+                <nav id="main-navbar" className="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+                    <div className="container-fluid">
+                        <button className="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+                            aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle Offcanvas" onClick={handleToggleBackDrop}>
+                            <i className="fas fa-bars"></i>
+                        </button>
+                        {/* Logo Navbar */}
+                        <Link className="navbar-brand" href="/home">
+                            <Image src={Logo} width="100%" height={26} alt="logo Embrapa com letras em azul com um simbolo verde, sendo que as letras em cima do simbolo são brancas"/>
+                        </Link>
+                        {/* Código dos Itens Exibidos no Navbar */}
+                        <ul className="navbar-nav ms-auto d-flex flex-row">
+                            <li className="nav-item text-item-link">
+                                <Link className="nav-link back-item-link" href="/edicao-completa" aria-current="page">
+                                    <span className="link-text">Edição Completa</span>
+                                </Link> 
+                            </li>
+                            <li className="nav-item text-item-link">
+                                <Link className="nav-link back-item-link" href="/autores" aria-current="page">
+                                    <span className="link-text">Autores</span>
+                                </Link>
+                            </li>
+                            {/* Input Search para tela maior que 992px */}
+                            <div className="hide-form-search2">
+                                <form className="d-flex rounded-pill position-relative first-form-search" role="search">
+                                    <div className="search-bar-container p-1">
+                                        <SearchBar setResults={setResults} />
+                                        {results && results.length > 0 && <SearchResultsList results={results} handleCloseResults={handleCloseResults} />}
+                                    </div>
+                                </form>
+                            </div>
+
+                            <li className="nav-item">
+                                <Image src={LogoIF} className='logotipo img' width={130} height={35} alt="Logotipo do IFMS Campus Dourados" priority/>
+                            </li>
+                            <li className="nav-item me-lg-0">
+                                <Image src={LogoEmbrapa} className='logotipo img' width={70} height={48} alt="Logotipo da Embrapa" priority/>
+                            </li>
+
+                            {/* Input Search para tela menor que 992px */}
+                            <form className="d-flex rounded-pill position-relative" role="search">
+                                <div className="input-group hide-form-search">
+                                    <div className="search-bar-container">
+                                        <SearchBar setResults={setResults} />
+                                        {results && results.length > 0 && <SearchResultsList results={results}  handleCloseResults={handleCloseResults} />}
+                                    </div>
+                                </div>
+                            </form>
+                        </ul>
+                    </div>
+                    {isOffcanvasOpen && <div className="offcanvas-backdrop show" onClick={handleToggleBackDrop}></div>}
+                </nav>
+                
                 {/* Conteúdo da Cartilha */}
                 <main className='docMainContainer_gTbr'>
                     <div className='container padding-bottom--lg'>
                         <div className='col'>
-                            <nav className="home-section" aria-label="Breadcrumbs" style={{ marginTop: 120 }}>
+                            <nav className="home-section" aria-label="Breadcrumbs" style={{marginTop: 120}}>    
                                 {/* Código Navegação Estrutural | Trilha de Navegção do Usuário */}
                                 <ul className="breadcrumbs">
                                     <li className="breadcrumbs__item">
                                         <Link href="/home" className="breadcrumbs__link">
-                                            <i className="fas fa-home" style={{ fontSize: '13px' }}></i>
+                                            <i className="fas fa-home" style={{fontSize: '13px'}}></i>
                                         </Link>
-                                        <i className="fas fa-chevron-right" style={{ fontSize: '10px' }}></i>
+                                        <i className="fas fa-chevron-right" style={{fontSize: '10px'}}></i>
                                     </li>
                                     <li className="breadcrumbs__item">
                                         <span className="breadcrumbs__link">Sumário</span>
                                         <meta itemProp="position" content="1" />
-                                        <i className="fas fa-chevron-right" style={{ fontSize: '10px' }}></i>
+                                        <i className="fas fa-chevron-right" style={{fontSize: '10px'}}></i>
                                     </li>
                                     <li className="breadcrumbs__item breadcrumbs__item--active">
                                         <span className="breadcrumbs__link" itemProp="name">
@@ -267,17 +323,17 @@ export const Capitulos = () => {
                                     </li>
                                 </ul>
                             </nav>
-                            <section className="home-section right-sidebar" style={{ marginTop: 30 }}>
+                            <section className="home-section right-sidebar" style={{marginTop: 30}}>
                                 {/* Código dos Textos da Cartilha */}
                                 <div id="contents" className="bd-content ps-lg-2">
-                                    <TextCapitulos lista={data} activeTitle={activeTitle} setActiveTitle={setActiveTitle} />
+                                    <TextCapitulos lista = {data} activeTitle={activeTitle} setActiveTitle={setActiveTitle} />
                                 </div>
                             </section>
                         </div>
                     </div>
                 </main>
             </div>
-
+            
         </>
     );
 };
