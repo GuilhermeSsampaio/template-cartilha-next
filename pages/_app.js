@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import Layout from "../components/Layout";
 import 'react-toastify/dist/ReactToastify.css';
 // Importação dos CSS
 import "../styles/globals.css";
@@ -65,9 +65,12 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
+    <Layout>
+    
       <Component {...pageProps} />
       {/* componente que mostra a notificação */}
       <Notification/>
+    </Layout>
     </>
   )
 }

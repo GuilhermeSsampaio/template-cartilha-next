@@ -239,61 +239,7 @@ export const Capitulos = () => {
                             </li>
                         </ul>
                     </div>
-                </nav>
-
-                {/* Código Navbar */}
-                <nav id="main-navbar" className="navbar navbar-expand-lg navbar-light bg-white fixed-top">
-                    <div className="container-fluid">
-                        <button className="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
-                            aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle Offcanvas" onClick={handleToggleBackDrop}>
-                            <i className="fas fa-bars"></i>
-                        </button>
-                        {/* Logo Navbar */}
-                        <Link className="navbar-brand" href="/home">
-                            <Image src={Logo} width="100%" height={26} alt="logo Embrapa com letras em azul com um simbolo verde, sendo que as letras em cima do simbolo são brancas" />
-                        </Link>
-                        {/* Código dos Itens Exibidos no Navbar */}
-                        <ul className="navbar-nav ms-auto d-flex flex-row">
-                            <li className="nav-item text-item-link">
-                                <Link className="nav-link back-item-link" href="/edicao-completa" aria-current="page">
-                                    <span className="link-text">Edição Completa</span>
-                                </Link>
-                            </li>
-                            <li className="nav-item text-item-link">
-                                <Link className="nav-link back-item-link" href="/autores" aria-current="page">
-                                    <span className="link-text">Autores</span>
-                                </Link>
-                            </li>
-                            {/* Input Search para tela maior que 992px */}
-                            <div className="hide-form-search2">
-                                <form className="d-flex rounded-pill position-relative first-form-search" role="search">
-                                    <div className="search-bar-container p-1">
-                                        <SearchBar setResults={setResults} />
-                                        {results && results.length > 0 && <SearchResultsList results={results} handleCloseResults={handleCloseResults} />}
-                                    </div>
-                                </form>
-                            </div>
-
-                            <li className="nav-item">
-                                <Image src={LogoIF} className='logotipo img' width={130} height={35} alt="Logotipo do IFMS Campus Dourados" priority />
-                            </li>
-                            <li className="nav-item me-lg-0">
-                                <Image src={LogoEmbrapa} className='logotipo img' width={70} height={48} alt="Logotipo da Embrapa" priority />
-                            </li>
-
-                            {/* Input Search para tela menor que 992px */}
-                            <form className="d-flex rounded-pill position-relative" role="search">
-                                <div className="input-group hide-form-search">
-                                    <div className="search-bar-container">
-                                        <SearchBar setResults={setResults} />
-                                        {results && results.length > 0 && <SearchResultsList results={results} handleCloseResults={handleCloseResults} />}
-                                    </div>
-                                </div>
-                            </form>
-                        </ul>
-                    </div>
-                    {isOffcanvasOpen && <div className="offcanvas-backdrop show" onClick={handleToggleBackDrop}></div>}
-                </nav>
+                </nav>                
 
                 {/* Conteúdo da Cartilha */}
                 <main className='docMainContainer_gTbr'>
@@ -332,18 +278,6 @@ export const Capitulos = () => {
                 </main>
             </div>
 
-            {/* Código Footer Embrapa */}
-            <footer>
-                <div className="container container-footer bottom-0 end-0">
-                    <div className="title-footer">
-                        <p>Embrapa Agropecuária Oeste</p>
-                    </div>
-                    <div className="description-footer">
-                        <p>Rodovia BR 163, Km 253,6, Caixa Postal 449, CEP: 79804-970, Dourados, MS</p>
-                        <p>Fone: + 55 (67) 3416-9700</p>
-                    </div>
-                </div>
-            </footer>
         </>
     );
 };
