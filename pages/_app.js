@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 import 'react-toastify/dist/ReactToastify.css';
 // Importação dos CSS
 import "../styles/globals.css";
@@ -18,7 +18,7 @@ import { init } from "@socialgouv/matomo-next";
 
 //importação do dotenv para acessar o .env
 import dotenv from "dotenv";
-import Notification from "../components/Notification";
+import Notification from "../components/notification/Notification";
 dotenv.config();
 
 //setando matomo

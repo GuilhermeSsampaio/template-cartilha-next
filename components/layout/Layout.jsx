@@ -1,5 +1,5 @@
-import Navbar from "./navbar";
-import Footer from "./footer";
+import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
 
 export default function Layout({ children }) {
     return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DownloadNotification } from './Notification';
+import { DownloadNotification } from '../notification/Notification';
 
 function InstallButton() {
   const [showInstallButton, setShowInstallButton] = useState(false);

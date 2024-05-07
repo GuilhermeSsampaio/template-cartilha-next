@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-scroll';
-import { DownloadNotification } from './Notification';
+import { DownloadNotification } from '../notification/Notification';
 
 // Componente que renderiza o botão de instalação para ios (PWA)
 

@@ -1,5 +1,4 @@
-//pagina home raiz, '/' é a home page inicial
-import { HomePage } from '../components/HomePage'
+import { HomePage } from '../components/homepage/HomePage'
 
 export default function Home() {
   return (

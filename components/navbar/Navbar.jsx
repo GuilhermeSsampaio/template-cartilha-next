@@ -1,14 +1,14 @@
 import Image from "next/image"
 import Link from "next/link"
-import { SearchBar } from "./search/SearchBar"
-import { SearchResultsList } from "./search/SearchResultsList"
-import Logo from '../public/logo.svg'
+import { SearchBar } from "../search/SearchBar"
+import { SearchResultsList } from "../search/SearchResultsList"
+import Logo from '../../public/logo.svg'
 import { useState } from 'react'
 
 export default function Navbar () {
-    var LogoIF = require('../public/ifms-dr-marca-2015.png');
-    var LogoEmbrapa = require('../public/logo-embrapa-400.png');
-    var LogoIFEmbrapa = require('../public/logo-if-embrapa.png');
+    var LogoIF = require('../../public/ifms-dr-marca-2015.png');
+    var LogoEmbrapa = require('../../public/logo-embrapa-400.png');
+    var LogoIFEmbrapa = require('../../public/logo-if-embrapa.png');
 
     const [results, setResults] = useState([]);
     

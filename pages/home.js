@@ -1,6 +1,6 @@
-// renderiza a home page, é a página que está servindo de link para retornar ao home --> /home
+// pages/home.js
 import React from 'react';
-import { HomePage } from '../components/HomePage'
+import { HomePage } from '../components/homepage/HomePage'
 
 export default function Home() {
   return (

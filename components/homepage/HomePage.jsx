@@ -2,9 +2,8 @@ import { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import Logo from '../public/logo.svg'
-import InstallButton from './InstallButton'
-import InstallButtonIos from './InstallButtonIos'
+import InstallButton from '../utils/InstallButton'
+import InstallButtonIos from '../utils/InstallButtonIos'
 
 import { isAndroid, isIOS, isDesktop } from 'react-device-detect'
 
@@ -12,8 +11,8 @@ import { isAndroid, isIOS, isDesktop } from 'react-device-detect'
 
 export const HomePage = () => {
     //Importação das Imagens
-    var LogoCartilha = require('../public/logo-cartilha.svg');   
-    var Harley = require('../public/harley.png');   
+    var LogoCartilha = require('../../public/logo-cartilha.svg');   
+    var Harley = require('../../public/harley.png');   
 
     return(
         <>

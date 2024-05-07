@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import ChapterContent from './ChapterContent';
 import TableOfContents from './TableOfContents';
-import { convertToHTML, RefconvertToHTML } from '../HtmlConverter'; 
+import { convertToHTML, RefconvertToHTML } from '../utils/HtmlConverter'
 
 //navegação entre os capítulos
 const TextCapitulos = ({ lista, activeTitle, setActiveTitle }) => {
