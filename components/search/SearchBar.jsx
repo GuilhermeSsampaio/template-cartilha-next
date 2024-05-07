@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import FetchApiOffline from "../api/FetchApiOffline"; // Certifique-se de importar o componente FetchApiOffline corretamente
+import FetchApiOffline from "../../api/FetchApiOffline"; // Certifique-se de importar o componente FetchApiOffline corretamente
 
 // Componente que realiza a pesquisa de capítulos
 export const SearchBar = ({ setResults }) => {

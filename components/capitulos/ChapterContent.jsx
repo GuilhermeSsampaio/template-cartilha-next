@@ -1,5 +1,5 @@
 import React from 'react';
-import ReferenceSection from '../ReferenceSection';
+import ReferenceSection from './ReferenceSection';
 //renderiza o conteúdo de cada capítulo
 const ChapterContent = ({ cap, activeTitle, convertToHTML, RefconvertToHTML }) => {
   return (

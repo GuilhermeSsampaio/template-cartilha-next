@@ -5,8 +5,7 @@ import Link from 'next/link'
 import Logo from '../public/logo.svg'
 import InstallButton from './InstallButton'
 import InstallButtonIos from './InstallButtonIos'
-import { SearchBar } from "./SearchBar.jsx";
-import { SearchResultsList } from "./SearchResultsList.jsx";
+
 import { isAndroid, isIOS, isDesktop } from 'react-device-detect'
 
 //componente da página inicial renderizado pela rota '/home' e pela rota '/'

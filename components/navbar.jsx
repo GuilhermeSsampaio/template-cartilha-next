@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
-import { SearchBar } from "./SearchBar"
-import { SearchResultsList } from "./SearchResultsList"
+import { SearchBar } from "./search/SearchBar"
+import { SearchResultsList } from "./search/SearchResultsList"
 import Logo from '../public/logo.svg'
 import { useState } from 'react'
 

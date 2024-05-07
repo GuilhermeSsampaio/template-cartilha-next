@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import Logo from '../public/logo.svg';
-import { SearchBar } from './SearchBar.jsx';
-import { SearchResultsList } from './SearchResultsList.jsx';
+
 import FetchApiOffline from '../api/FetchApiOffline.jsx';
 
 export const Autores = () => {

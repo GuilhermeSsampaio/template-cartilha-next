@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Logo from '../../public/logo.svg'
 import TextCapitulos from './TextCapitulos.jsx'
-import { SearchBar } from "../SearchBar.jsx";
-import { SearchResultsList } from "../SearchResultsList.jsx";
+import { SearchBar } from "../search/SearchBar.jsx";
+import { SearchResultsList } from "../search/SearchResultsList.jsx";
 import FetchApiOffline from '../../api/FetchApiOffline.jsx';
 
 export const Capitulos = () => {
